@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matheus Veiga | Portfólio Online</title>
+    <link rel="stylesheet" href="inc/css/style.css">
+</head>
+
+<body>
+
+    <!-- MENU FIXO -->
+    <header class="navbar">
+        <nav>
+            <div class="menu-toggle" id="menuToggle">&#9776;</div> <!-- Ícone do hambúrguer -->
+            <ul id="menuNav">
+                <li><a href="#sobre">Sobre mim</a></li>
+                <li><a href="#formacao">Formação</a></li>
+                <li><a href="#portfolio">Portfólio</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- SEÇÃO SOBRE -->
+        <section id="sobre" class="secao-padrao">
+            <div class="secao-titulo">
+                <img src="inc/img/sobre-mim.png">
+                Sobre mim
+            </div>
+            <p><strong>Nome:</strong> Matheus Francisco Veiga da Silva</p>
+            <p><strong>Idade:</strong> 35 anos</p>
+            <p><strong>Cidade:</strong> Pelotas, RS</p>
+            <p><strong>Hobbies:</strong> Programação, videogames, leitura de ficção científica, fotografia.</p>
+            <p><strong>Apresentação:</strong> Sou um desenvolvedor iniciante com paixão por criar websites e aprender novas tecnologias. Este portfólio mostra alguns dos meus projetos e conquistas.</p>
+        </section>
+
+        <!-- SEÇÃO FORMAÇÃO -->
+        <section id="formacao" class="secao-padrao">
+            <div class="secao-titulo">
+                <img src="inc/img/formacao.png">
+                Formação
+            </div>
+
+            <article>
+                <h3>IF-Sul - Técnico em eletrônica</h3>
+                <p>Conclusão: 2013</p>
+            </article>
+
+            <article>
+                <h3>Inglês - Intermediário</h3>
+                <p>Conclusão: 2018</p>
+            </article>
+
+            <article>
+                <h3>UNINTER - Análise e Desenvolvimento de Sistemas</h3>
+                <p>Ano de início: 2023 - cursando</p>
+            </article>
+
+            <article>
+                <h3>UNINTER - Eng de Software</h3>
+                <p>Ano de início: 2023 - cursando</p>
+            </article>
+
+            <article>
+                <h3>Curso Online - PHP Orientado a Objeto</h3>
+                <p>Conclusão: 2023</p>
+            </article>
+
+            <article>
+                <h3>Curso Online - Node.JS</h3>
+                <p>Conclusão: 2024</p>
+            </article>
+
+        </section>
+
+        <!-- SEÇÃO PORTFÓLIO -->
+        <section id="portfolio" class="secao-padrao">
+            <div class="secao-titulo">
+                <img src="inc/img/portfolio.png">
+                Portfólio
+            </div>
+
+            <div class="card-portfolio">
+                <h3>Projeto Site Institucional</h3>
+                <p>Criação de um site institucional fictício para uma empresa de tecnologia.</p>
+                <a href="https://github.com/exemplo/projeto-site" target="_blank">Ver projeto</a>
+            </div>
+
+            <div class="card-portfolio">
+                <h3>Calculadora Web</h3>
+                <p>Desenvolvimento de uma calculadora funcional usando JavaScript puro.</p>
+                <a href="https://github.com/exemplo/calculadora-web" target="_blank">Ver projeto</a>
+            </div>
+
+            <div class="card-portfolio">
+                <h3>Portfolio Pessoal</h3>
+                <p>Layout de portfólio pessoal responsivo, aplicando HTML, CSS e JS.</p>
+                <a href="https://github.com/exemplo/portfolio" target="_blank">Ver projeto</a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO CONTATO -->
+        <section id="contato" class="secao-padrao">
+            <div class="secao-titulo">
+                <img src="inc/img/contato.png">
+                Contato
+            </div>
+            <form id="formContato" onsubmit="return validarFormulario(event)">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu E-mail" required>
+
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" required></textarea>
+
+                <button type="submit">Enviar Mensagem (Simulado)</button>
+
+                <div id="mensagemStatus"></div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Modal de Mensagem -->
+    <div id="modalMensagem" class="modal">
+        <div class="modal-content">
+            <span id="fecharModal" class="close">&times;</span>
+            <p id="textoModal">Mensagem aqui</p>
+        </div>
+    </div>
+
+    <!-- BOTÕES FLOUTANTES -->
+    <button id="toggleThemeBtn" class="floating-btn" title="Modo escuro">☾</button>
+    <button id="scrollToTopBtn" class="floating-btn" title="Voltar ao topo!" style="display: none;">
+        <img src="inc/img/seta.png" alt="">
+    </button>
+
+    <script src="inc/js/script.js"></script>
+</body>
+
+</html>

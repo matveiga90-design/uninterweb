@@ -1,0 +1,363 @@
+/* =======================================
+   Configurações globais e reset
+   ======================================= */
+html {
+    scroll-behavior: smooth; /* Faz a rolagem para âncoras ser suave */
+    scroll-padding-top: 100px; /* Espaço no topo para compensar menu fixo */
+}
+
+* {
+    margin: 0; /* Remove margens padrão de todos os elementos */
+    padding: 0; /* Remove padding padrão */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura/altura */
+}
+
+/* =======================================
+   Variáveis CSS para cores e temas
+   ======================================= */
+:root {
+    --cor-primaria: #067cf9; /* Azul de destaque para botões, links, foco */
+    --cor-secundaria: #6c757d; /* Cinza para textos secundários */
+    --fundo-principal: #f4f4f4; /* Fundo principal da página */
+    --fundo-secao-alternativa: #e6e6e6; /* Fundo de seções alternadas */
+    --fundo-navbar: #067cf9; /* Fundo do menu de navegação */
+    --menu-navbar: #ffffff; /* Cor do texto/links do menu */
+    --menu-navbar-hover: #023b78; /* Cor ao passar o mouse no menu */
+    --texto-principal: #333333; /* Cor padrão do texto */
+    --borda-clara: #dddddd; /* Borda sutil para inputs e cards */
+    --contato-fundo: #e6e6e6; /* Fundo específico da seção contato */
+    --contato-borda: #cccccc; /* Borda da seção contato */
+}
+
+/* Tema escuro */
+body.dark-theme {
+    --fundo-principal: #4d4d4d; /* Fundo escuro principal */
+    --fundo-secao-alternativa: #575757; /* Fundo de seções alternadas no tema escuro */
+    --texto-principal: #dbdbdb; /* Texto claro no fundo escuro */
+    --borda-clara: #333333; /* Borda escura */
+    --cor-primaria: #0069d9; /* Azul primário ajustado para tema escuro */
+    --fundo-navbar: #0069d9; /* Fundo do menu no tema escuro */
+    --menu-navbar: #ffffff; /* Cor do texto/links do menu permanece branco */
+    --menu-navbar-hover: #023b78; /* Hover do menu */
+    --contato-fundo: #575757; /* Fundo da seção contato no tema escuro */
+    --contato-borda: #666666; /* Borda da seção contato no tema escuro */
+}
+
+/* =======================================
+   Estilo global do body
+   ======================================= */
+body {
+    font-family: Arial, sans-serif; /* Fonte principal */
+    line-height: 1.6; /* Altura da linha para facilitar leitura */
+    background-color: var(--fundo-principal); /* Cor de fundo */
+    color: var(--texto-principal); /* Cor do texto */
+}
+
+/* =======================================
+   Menu de navegação
+   ======================================= */
+.navbar {
+    background-color: var(--fundo-navbar); /* Cor de fundo do menu */
+    position: sticky; /* Fixa o menu no topo ao rolar a página */
+    top: 0; /* Posição no topo da página */
+    padding: 15px 0; /* Espaçamento interno */
+    z-index: 1000; /* Fica acima de outros elementos */
+}
+
+.navbar ul {
+    display: flex; /* Layout flexível para os itens do menu */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    list-style: none; /* Remove marcadores de lista */
+}
+
+.navbar a {
+    color: var(--menu-navbar); /* Cor do texto do menu */
+    text-decoration: none; /* Remove sublinhado padrão */
+    font-weight: bold; /* Negrito */
+    padding: 10px 20px; /* Espaçamento interno do link */
+    display: block; /* Para poder aplicar padding */
+    border-radius: 6px; /* Cantos arredondados */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Suaviza transições */
+}
+
+.navbar a:hover {
+    background-color: var(--menu-navbar-hover); /* Fundo ao passar o mouse */
+    border-radius: 6px; /* Mantém cantos arredondados */
+    transform: translateY(-2px); /* Leve "elevação" ao passar o mouse */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Sombra para efeito 3D */
+}
+
+.navbar ul li a.active {
+    background-color: var(--menu-navbar-hover); /* Fundo do item ativo */
+    border-radius: 6px;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* =======================================
+   Títulos das seções
+   ======================================= */
+.secao-titulo {
+    background-color: var(--cor-primaria); /* Fundo azul */
+    color: white; /* Texto branco */
+    padding: 20px 15px; /* Espaçamento interno */
+    text-align: left; /* Alinha o texto à esquerda */
+    font-size: 1.5em; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    letter-spacing: 1px; /* Espaçamento entre letras */
+    margin: -20px -20px 20px -20px; /* Ajusta margens para estender até borda da seção */
+    border-top-left-radius: 8px; /* Arredonda cantos superiores */
+    border-top-right-radius: 8px;
+}
+
+.secao-titulo img {
+    width: 35px; /* Largura da imagem */
+    height: 35px; /* Altura da imagem */
+    vertical-align: middle; /* Alinha verticalmente com o texto */
+    margin-right: 10px; /* Espaço à direita */
+    margin-top: -5px; /* Ajusta alinhamento vertical */
+}
+
+/* =======================================
+   Estilo padrão das seções
+   ======================================= */
+.secao-padrao {
+    padding: 20px; /* Espaçamento interno */
+    margin: 20px auto; /* Margem automática centralizada */
+    max-width: 1000px; /* Largura máxima */
+    background-color: var(--fundo-principal); /* Fundo da seção */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Sombra suave */
+}
+
+.secao-padrao.active {
+    transform: translateY(-4px); /* Sobe levemente quando ativa */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12); /* Sombra maior */
+    transition: transform 0.3s, box-shadow 0.3s; /* Animação suave */
+}
+
+.secao-alt {
+    background-color: var(--contato-fundo, #e9e9e9); /* Fundo alternativo */
+}
+
+.secao-padrao h2 {
+    margin-bottom: 20px; /* Espaço abaixo do título */
+    color: var(--cor-primaria); /* Cor do título */
+    text-align: center; /* Centraliza texto */
+}
+
+.secao-padrao p,
+.secao-padrao article {
+    margin-bottom: 15px; /* Espaço entre parágrafos/artigos */
+    line-height: 1.6; /* Altura da linha */
+    color: var(--texto-principal); /* Cor do texto */
+}
+
+/* =======================================
+   Estilo de links do portfolio
+   ======================================= */
+#portfolio a {
+    display: inline-block; /* Permite aplicar padding */
+    padding: 10px 20px; /* Espaçamento interno */
+    margin: 5px 0; /* Margem entre botões */
+    background-color: var(--cor-primaria); /* Fundo azul */
+    color: #fff; /* Texto branco */
+    border-radius: 6px; /* Cantos arredondados */
+    text-decoration: none; /* Remove sublinhado */
+    transition: background-color 0.3s, transform 0.2s; /* Transição suave */
+}
+
+#portfolio a:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+    transform: translateY(-2px); /* Elevação */
+}
+
+#contato {
+    background-color: var(--contato-fundo); /* Fundo da seção contato */
+    border-radius: 8px; /* Cantos arredondados */
+}
+
+/* =======================================
+   Formulário
+   ======================================= */
+#formContato label,
+#formContato input,
+#formContato textarea,
+#formContato button {
+    display: block; /* Cada elemento ocupa uma linha */
+    width: 100%; /* Largura total */
+    margin-bottom: 10px; /* Espaço entre elementos */
+    padding: 12px; /* Espaçamento interno */
+    border: 1px solid var(--contato-borda); /* Borda padrão */
+    border-radius: 6px; /* Cantos arredondados */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Animações suaves */
+}
+
+#formContato label {
+    background-color: rgba(255, 255, 255, 0.305); /* Fundo semi-transparente */
+    font-weight: bold; /* Negrito */
+}
+
+#formContato input,
+#formContato textarea {
+    padding: 10px;
+    border: 1px solid var(--contato-borda); /* Borda padrão */
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.733); /* Fundo branco translúcido */
+}
+
+#formContato button {
+    background-color: #28a745; /* Cor do botão (verde padrão) */
+    color: white; /* Texto branco */
+    padding: 12px; /* Espaço interno */
+    border: none; /* Remove borda */
+    cursor: pointer; /* Cursor mãozinha */
+    margin-top: 15px; /* Espaço acima do botão */
+}
+
+#formContato input:focus,
+#formContato textarea:focus {
+    outline: none; /* Remove borda padrão azul */
+    border-color: #007bff; /* Cor do destaque */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Efeito de anel de luz */
+}
+
+#formContato button {
+    background-color: var(--cor-primaria); /* Azul principal */
+    color: white;
+    font-size: 1.1em;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Animações */
+}
+
+#formContato button:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+    transform: translateY(-2px); /* Elevação */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Sombra 3D */
+}
+
+/* =======================================
+   Botões flutuantes
+   ======================================= */
+.floating-btn {
+    position: fixed; /* Fica fixo na tela */
+    right: 20px; /* Distância da borda direita */
+    bottom: 20px; /* Distância da borda inferior */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Botão circular */
+    border: none;
+    background-color: var(--cor-primaria);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex; /* Para centralizar ícones/texto */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 1000; /* Fica acima do conteúdo */
+}
+
+.floating-btn:hover {
+    background-color: var(--cor-primaria);
+    transform: translateY(-2px); /* Elevação */
+    color: white;
+}
+
+/* Ajustes específicos de posicionamento dos botões flutuantes */
+#toggleThemeBtn {
+    bottom: 80px; /* Botão de tema acima do scroll-to-top */
+    color: white;
+}
+
+#scrollToTopBtn {
+    bottom: 20px; /* Botão de voltar ao topo mais embaixo */
+}
+
+#scrollToTopBtn img {
+    width: 20px;
+    height: 20px;
+    margin-top: 4px; /* Ajuste vertical */
+}
+
+/* =======================================
+   Modal
+   ======================================= */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica fixo na tela */
+    z-index: 2000; /* Acima de todo conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Para telas pequenas permitir scroll */
+    background-color: rgba(0,0,0,0.5); /* Fundo semi-transparente */
+}
+
+.modal-content {
+    background-color: var(--fundo-principal);
+    margin: 15% auto; /* Centraliza vertical e horizontal */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Sombra suave */
+}
+
+.close {
+    color: #aaa; /* Cor do "x" */
+    float: right; /* Posiciona à direita */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000; /* Escurece ao passar o mouse */
+}
+
+/* =======================================
+   Menu mobile (toggle)
+   ======================================= */
+.menu-toggle {
+    display: none; /* Escondido por padrão em telas grandes */
+}
+
+/* Media Query para telas pequenas */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Exibe o botão */
+        position: absolute; /* Posiciona acima do conteúdo */
+        top: 2px;
+        right: 20px;
+    }
+
+    .navbar ul {
+        flex-direction: column; /* Menu vertical */
+        position: fixed; /* Fica sobre o conteúdo */
+        background-color: var(--fundo-navbar); /* Fundo do menu */
+        width: 100%;      /* Ocupa toda largura */
+        max-height: 0; /* Escondido inicialmente */
+        overflow: hidden; /* Esconde itens fora do max-height */
+        transition: transform 0.3s ease-in-out;
+        top: 20px; /* Abaixo do menu */
+    }
+
+    .navbar ul.show {
+        max-height: 500px; /* Mostra os itens quando ativo */
+    }
+
+    .navbar li {
+        text-align: center; /* Centraliza texto do item */
+        margin: 10px 0; /* Espaço entre itens */
+    }
+}
+/* =======================================
+   Cards de portfólio
+   ======================================= */
