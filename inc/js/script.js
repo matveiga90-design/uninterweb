@@ -1,170 +1,186 @@
-// Toggle do menu mobile
+// --- MENU MOBILE ---
+// Obtém o botão do menu (ícone hambúrguer)
 const menuToggle = document.getElementById('menuToggle');
+// Obtém o elemento da navegação (menu em si)
 const menuNav = document.getElementById('menuNav');
 
-menuToggle.addEventListener('click', () => {
-    menuNav.classList.toggle('show');
+// Verifica se os elementos existem antes de adicionar eventos
+if (menuToggle && menuNav) {
 
-    // Troca o ícone do hambúrguer para X quando aberto
-    if (menuNav.classList.contains('show')) {
-        menuToggle.innerHTML = '&#10006;'; // X
-    } else {
-        menuToggle.innerHTML = '&#9776;'; // hambúrguer
-    }
-    
-});
+    // Função para alternar o estado do menu (abrir/fechar)
+    const toggleMenu = () => {
+        // Alterna a classe "show" no menu
+        menuNav.classList.toggle('show');
+        // Altera o ícone: X quando aberto, hambúrguer quando fechado
+        menuToggle.innerHTML = menuNav.classList.contains('show') ? '&#10006;' : '&#9776;';
+    };
 
-// Fechar menu ao clicar fora dele
-window.addEventListener('click', (e) => {
-    if (!menuNav.contains(e.target) && !menuToggle.contains(e.target)) {
-        menuNav.classList.remove('show');
-    }
-        // Troca o ícone do hambúrguer para X quando aberto
-    if (menuNav.classList.contains('show')) {
-        menuToggle.innerHTML = '&#10006;'; // X
-    } else {
-        menuToggle.innerHTML = '&#9776;'; // hambúrguer
-    }
-});
+    // Ao clicar no botão do menu
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Impede o clique de se propagar (para não fechar imediatamente)
+        toggleMenu(); // Abre ou fecha o menu
+    });
 
-// Referências
+    // Fecha o menu ao clicar fora dele
+    document.addEventListener('click', (e) => {
+        // Se o clique não for dentro do menu e o menu estiver aberto
+        if (!menuNav.contains(e.target) && menuNav.classList.contains('show')) {
+            // Remove a classe "show" (fecha o menu)
+            menuNav.classList.remove('show');
+            // Retorna o ícone para hambúrguer
+            menuToggle.innerHTML = '&#9776;';
+        }
+    });
+}
+
+// --- MODAL DE MENSAGEM ---
+// Referência ao modal inteiro
 const modal = document.getElementById("modalMensagem");
+// Elemento onde a mensagem do modal será exibida
 const textoModal = document.getElementById("textoModal");
+// Botão de fechar (o “X”)
 const fecharModal = document.getElementById("fecharModal");
 
-function mostrarModal(mensagem) {
-    textoModal.textContent = mensagem;
-    modal.style.display = "block";
+// Função que mostra o modal com uma mensagem
+function mostrarModal(mensagem, tipo) {
+    if (!modal || !textoModal) return; // Se o modal não existir, retorna
+
+    if (tipo === 'carregando') { // Se for carregando, mostra o gif
+        imgModal.src = 'inc/img/carregando.gif'; // Coloca o gif de carregando
+    } else if (tipo === 'sucesso') { // Se for sucesso, mostra o ícone de sucesso
+        imgModal.src = 'inc/img/sucesso.png'; // Coloca o ícone de sucesso
+    } else { // Caso contrário, mostra o ícone de erro
+        imgModal.src = 'inc/img/erro.png'; // Coloca o ícone de erro
+    }
+    
+    textoModal.textContent = mensagem; // Coloca o texto recebido
+    modal.style.display = "flex"; // Mostra o modal
 }
 
-// Fecha o modal ao clicar no "x"
-fecharModal.onclick = function() {
-    modal.style.display = "none";
-};
+// Fecha o modal ao clicar no “X” ou fora dele
+if (modal && fecharModal) {
+    // Clicar no X fecha o modal
+    fecharModal.onclick = () => modal.style.display = "none";
 
-// Fecha o modal ao clicar fora do conteúdo
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-};
+    // Clicar fora do conteúdo do modal também fecha
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = "none";
+    });
+}
 
-// Função de validação e envio (modificada)
+// --- FORMULÁRIO DE CONTATO ---
+// Função chamada no envio do formulário
 function validarFormulario(event) {
-    event.preventDefault();
+    event.preventDefault(); // Impede o envio normal do formulário
 
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const mensagem = document.getElementById('mensagem').value.trim();
+    // Obtém os valores digitados, removendo espaços extras
+    const nome = document.getElementById('nome')?.value.trim();
+    const email = document.getElementById('email')?.value.trim();
+    const mensagem = document.getElementById('mensagem')?.value.trim();
     const form = document.getElementById('formContato');
 
-    // Validação
-    if (nome === '' || email === '' || mensagem === '') {
-        mostrarModal("Por favor, preencha todos os campos obrigatórios.");
-        return false;
+    // Verifica se algum campo obrigatório está vazio
+    if (!nome || !email || !mensagem) {
+        return mostrarModal("Por favor, preencha todos os campos obrigatórios.", 'erro');
     }
 
+    // Expressão regular simples para validar o formato do e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        mostrarModal("Por favor, insira um endereço de e-mail válido (ex: usuario@dominio.com).");
-        return false;
+        return mostrarModal("Por favor, insira um e-mail válido (ex: usuario@dominio.com).", 'erro');
     }
 
-    // Simulação de envio
-    mostrarModal("Enviando...");
+    // Simula o envio da mensagem
+    mostrarModal("Enviando...", 'carregando');
     setTimeout(() => {
-        mostrarModal("Mensagem enviada com sucesso! (Simulação)");
-        form.reset();
+        // Após 1 segundo, mostra mensagem de sucesso
+        mostrarModal("Mensagem enviada com sucesso! (Simulação)", 'sucesso');
+        // Limpa o formulário
+        form?.reset();
     }, 1000);
-
-    return false;
 }
-// --- Seção de JavaScript para Botão de Voltar ao Topo ---
 
+// --- BOTÃO VOLTAR AO TOPO ---
+// Referência ao botão de “voltar ao topo”
 const btnTopo = document.getElementById("scrollToTopBtn");
 
-// Mostra o botão quando a rolagem for maior que 300px
-window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        btnTopo.style.display = "block";
-    } else {
-        btnTopo.style.display = "none";
-    }
-};
-
-// Faz a rolagem suave ao topo quando o botão é clicado
-btnTopo.addEventListener("click", function() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+// Só executa se o botão existir
+if (btnTopo) {
+    // Ao rolar a página...
+    window.addEventListener('scroll', () => {
+        // Exibe o botão se a rolagem for maior que 300px
+        btnTopo.style.display = (window.scrollY > 300) ? "block" : "none";
     });
-});
 
-// --- Seção de JavaScript para Tema Claro/Escuro ---
+    // Faz a rolagem suave até o topo quando clicado
+    btnTopo.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
+// --- TEMA CLARO/ESCURO ---
+// Botão que alterna o tema
 const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+// Referência ao corpo da página
 const body = document.body;
 
-function toggleTheme() {
-    body.classList.toggle('dark-theme');
-    const isDark = body.classList.contains('dark-theme');
-    
+// Função para aplicar o tema claro ou escuro
+function aplicarTema(isDark) {
+    // Adiciona ou remove a classe "dark-theme"
+    body.classList.toggle('dark-theme', isDark);
     // Atualiza o ícone do botão
     toggleThemeBtn.textContent = isDark ? '☀' : '☾';
-    // Atualiza o título do botão
-
+    // Atualiza o título (tooltip)
     toggleThemeBtn.title = isDark ? 'Modo claro' : 'Modo escuro';
-    
-    // Salva a preferência
+    // Salva a preferência no armazenamento local
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
-// Inicializa ícone corretamente
-function loadThemePreference() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') body.classList.add('dark-theme');
-    toggleThemeBtn.textContent = body.classList.contains('dark-theme') ? '☀' : '☾';
-    toggleThemeBtn.title = body.classList.contains('dark-theme') ? 'Modo claro' : 'Modo escuro';
-}
-
-// O código é executado somente se o elemento existir
+// Se o botão existir, ativa o controle de tema
 if (toggleThemeBtn) {
-    toggleThemeBtn.addEventListener('click', toggleTheme);
-    loadThemePreference(); // Chama a função ao carregar o script
+    // Lê a preferência salva anteriormente (se houver)
+    const temaSalvo = localStorage.getItem('theme') === 'dark';
+    aplicarTema(temaSalvo); // Aplica o tema salvo
+
+    // Quando clicar no botão, alterna o modo
+    toggleThemeBtn.addEventListener('click', () => {
+        const modoEscuro = !body.classList.contains('dark-theme');
+        aplicarTema(modoEscuro);
+    });
 }
 
-// --- Destacar item ativo no menu e na seção conforme a rolagem ---
-const sections = document.querySelectorAll('section');       // Todas as seções
-const navLinks = document.querySelectorAll('.navbar ul li a'); // Todos os links do menu
+// --- DESTACAR SEÇÃO ATIVA ---
+// Pega todas as seções do site
+const sections = document.querySelectorAll('section');
+// Pega todos os links do menu
+const navLinks = document.querySelectorAll('.navbar ul li a');
 
+// Quando o usuário rolar a página
 window.addEventListener('scroll', () => {
-    let current = '';
+    let secaoAtual = ''; // Guarda o ID da seção atual
 
-    // Descobre qual seção está visível
+    // Percorre todas as seções
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 250; // Ajusta para o header fixo
-        const sectionHeight = section.clientHeight;
+        const offset = section.offsetTop - 250; // Ajuste para o topo fixo
+        const altura = section.clientHeight; // Altura da seção
 
-        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
+        // Verifica se a seção está visível na tela
+        if (scrollY >= offset && scrollY < offset + altura) {
+            secaoAtual = section.id; // Salva o ID da seção atual
         }
 
-        // Remove classe 'active' de todas as seções
+        // Remove a classe "active" de todas as seções
         section.classList.remove('active');
     });
 
-    // Adiciona 'active' na seção visível
-    if (current) {
-        const secaoAtual = document.getElementById(current);
-        secaoAtual.classList.add('active');
+    // Adiciona "active" à seção visível
+    if (secaoAtual) {
+        document.getElementById(secaoAtual)?.classList.add('active');
     }
 
-    // Atualiza o menu
+    // Atualiza os links do menu conforme a seção atual
     navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
+        // Se o href do link corresponde à seção atual, adiciona "active"
+        link.classList.toggle('active', link.getAttribute('href') === `#${secaoAtual}`);
     });
 });
-

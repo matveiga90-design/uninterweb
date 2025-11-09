@@ -288,7 +288,9 @@ body {
    Modal
    ======================================= */
 .modal {
-    display: none; /* Escondido por padrão */
+    display: none;                /* Usa flexbox */
+    justify-content: center;      /* Centraliza horizontalmente */
+    align-items: center;          /* Centraliza verticalmente */
     position: fixed; /* Fica fixo na tela */
     z-index: 2000; /* Acima de todo conteúdo */
     left: 0;
@@ -330,7 +332,7 @@ body {
 }
 
 /* Media Query para telas pequenas */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .menu-toggle {
         display: block; /* Exibe o botão */
         position: absolute; /* Posiciona acima do conteúdo */
