@@ -11,8 +11,6 @@ menuToggle.addEventListener('click', () => {
     } else {
         menuToggle.innerHTML = '&#9776;'; // hambúrguer
     }
-
-     e.stopPropagation(); // Evita que o clique no botão feche imediatamente
     
 });
 
